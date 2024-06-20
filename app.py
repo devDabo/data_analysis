@@ -17,11 +17,11 @@ app = Flask(__name__)
 # Database connection details
 db_type = 'postgresql'
 db_driver = 'psycopg2'
-db_user = 'myuser'  # Replace with your PostgreSQL username
-db_pass = 'password'  # Replace with your PostgreSQL password
+db_user = 'myuser'
+db_pass = 'password' 
 db_host = 'localhost'
 db_port = '5432'
-db_name = 'mydatabase'  # Replace with your PostgreSQL database name
+db_name = 'mydatabase'
 
 # Create the database connection
 engine = create_engine(f'{db_type}+{db_driver}://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}')
@@ -42,7 +42,7 @@ def index():
     if 'lastinteractiondate' in df.columns:
         df['lastinteractiondate'] = pd.to_datetime(df['lastinteractiondate'])
     else:
-        df['lastinteractiondate'] = pd.NaT  # If column doesn't exist, set as NaT
+        df['lastinteractiondate'] = pd.NaT 
     
     df.fillna({
         'arpu': df['arpu'].mean() if 'arpu' in df.columns else 0,
@@ -106,7 +106,7 @@ def dataset():
     SELECT * FROM customerbehavior
     """
     df = pd.read_sql(query, engine)
-    data_html = df.to_html(classes="table table-striped table-bordered")
+    data_html = df.to_html(classes="table table-striped table-bordered", table_id="dataTable")
     return render_template('dataset.html', data_html=data_html)
 
 if __name__ == '__main__':
