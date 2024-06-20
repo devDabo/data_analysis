@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Churn Analysis{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Customer Churn Analysis</h1>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h2>ARPU Distribution by Churn Status</h2>
+        <img src="data:image/png;base64,{{ arpu_plot_url }}" alt="ARPU Distribution" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+        <h2>Monthly Usage by Contract Type</h2>
+        <img src="data:image/png;base64,{{ usage_plot_url }}" alt="Monthly Usage" class="img-fluid">
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h2>Confusion Matrix</h2>
+        <img src="data:image/png;base64,{{ cm_plot_url }}" alt="Confusion Matrix" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+        <h2>Classification Report</h2>
+        {{ cr_html|safe }}
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <h2>Key Terms and Metrics</h2>
+        <dl class="row">
+            <dt class="col-sm-3">ARPU</dt>
+            <dd class="col-sm-9">Average Revenue Per User: The average amount of revenue generated per user.</dd>
+
+            <dt class="col-sm-3">MRC</dt>
+            <dd class="col-sm-9">Monthly Recurring Charge: The fixed monthly charge billed to a customer for subscription services.</dd>
+
+            <dt class="col-sm-3">Churn Status</dt>
+            <dd class="col-sm-9">Indicates whether a customer has stopped using the service ("Yes") or is still an active user ("No").</dd>
+
+            <dt class="col-sm-3">Monthly Usage GB</dt>
+            <dd class="col-sm-9">The total amount of data (in gigabytes) used by a customer in a month.</dd>
+    
+            <dt class="col-sm-3">Confusion Matrix</dt>
+            <dd class="col-sm-9">
+                A table used to describe the performance of a classification model. It shows the actual vs. predicted classifications.
+                <ul>
+                    <li><strong>True Positive (TP):</strong> Correctly predicted positive cases.</li>
+                    <li><strong>True Negative (TN):</strong> Correctly predicted negative cases.</li>
+                    <li><strong>False Positive (FP):</strong> Incorrectly predicted positive cases (Type I error).</li>
+                    <li><strong>False Negative (FN):</strong> Incorrectly predicted negative cases (Type II error).</li>
+                </ul>
+            </dd>
+    
+            <dt class="col-sm-3">Classification Report</dt>
+            <dd class="col-sm-9">
+                A summary of the performance of a classification model, including metrics such as:
+                <ul>
+                    <li><strong>Precision:</strong> The ratio of correctly predicted positive observations to the total predicted positives. Precision = TP / (TP + FP)</li>
+                    <li><strong>Recall:</strong> The ratio of correctly predicted positive observations to all the observations in the actual class. Recall = TP / (TP + FN)</li>
+                    <li><strong>F1 Score:</strong> The weighted average of Precision and Recall. F1 Score = 2 * (Precision * Recall) / (Precision + Recall)</li>
+                    <li><strong>Support:</strong> The number of actual occurrences of the class in the dataset.</li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}
+
